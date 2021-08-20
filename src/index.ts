@@ -1,4 +1,5 @@
 import type * as swcType from '@swc/core'
+import type * as tsType from 'typescript'
 import deepmerge from 'deepmerge'
 import { getTSOptions } from './utils'
 
@@ -8,8 +9,16 @@ export function convert(
   /** cwd */
   cwd: string = process.cwd(),
   /** swc configs to override */
+  swcOptions?: swcType.Options,
+): swcType.Options {
+  const tsOptions = getTSOptions(filename, cwd) ?? {}
+  return convertTsConfig(tsOptions, swcOptions)
+}
+
+export function convertTsConfig(
+  tsOptions: tsType.CompilerOptions,
   swcOptions: swcType.Options = {},
-) {
+): swcType.Options {
   // https://json.schemastore.org/tsconfig
   const {
     esModuleInterop = false,
@@ -25,7 +34,7 @@ export function convert(
     alwaysStrict = false,
     noImplicitUseStrict = false,
     paths,
-  } = getTSOptions(filename, cwd) ?? {}
+  } = tsOptions
   const module = (_module as unknown as string)?.toLowerCase()
 
   const transformedOptions = deepmerge(
