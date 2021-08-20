@@ -10,6 +10,7 @@ export function convert(
   /** swc configs to override */
   swcOptions: swcType.Options = {},
 ) {
+  // https://json.schemastore.org/tsconfig
   const {
     esModuleInterop = false,
     sourceMap = 'inline', // notice here we default it to 'inline' instead of false
@@ -23,6 +24,7 @@ export function convert(
     strict = false,
     alwaysStrict = false,
     noImplicitUseStrict = false,
+    paths,
   } = getTSOptions(filename, cwd) ?? {}
   const module = (_module as unknown as string)?.toLowerCase()
 
@@ -57,6 +59,7 @@ export function convert(
         keepClassNames: !['es3', 'es5', 'es6', 'es2015'].includes(
           (target as string).toLowerCase(),
         ),
+        paths,
       },
     } as swcType.Options,
     swcOptions,
