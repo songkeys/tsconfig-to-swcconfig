@@ -1,0 +1,51 @@
+{
+  "name": "tsconfig-to-swcconfig",
+  "version": "1.0.1",
+  "description": "Convert tsconfig to swc config",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "tap --ts",
+    "prepare": "npx lint-staged"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Songkeys/tsconfig-to-swcconfig.git"
+  },
+  "keywords": [
+    "swc",
+    "tsconfig",
+    "converter",
+    "config"
+  ],
+  "author": "Songkeys",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Songkeys/tsconfig-to-swcconfig/issues"
+  },
+  "homepage": "https://github.com/Songkeys/tsconfig-to-swcconfig#readme",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "joycon": "^3.0.1",
+    "jsonc-parser": "^3.0.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.80",
+    "@types/node": "^16.6.1",
+    "@types/source-map-support": "^0.5.4",
+    "@types/tap": "^15.0.5",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "tap": "^15.0.9",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

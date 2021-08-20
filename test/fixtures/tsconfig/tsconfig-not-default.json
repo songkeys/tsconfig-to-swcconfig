@@ -1,0 +1,17 @@
+{
+  // test should read this file correctly
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "importHelpers": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "CommonJS",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitUseStrict": true
+  }
+}
