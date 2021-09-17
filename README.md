@@ -37,7 +37,7 @@ convert('tsconfig-filename.json', process.cwd(), {
 Convert tsconfig value directly:
 
 ```typescript
-import { convert } from 'tsconfig-to-swcconfig'
+import { convertTsConfig } from 'tsconfig-to-swcconfig'
 
 const swcConfig = convertTsConfig({
   module: 'commonjs',
@@ -50,7 +50,7 @@ const swcConfig = convertTsConfig({
 Advanced usage:
 
 ```typescript
-import { convert } from 'tsconfig-to-swcconfig'
+import { convertTsConfig } from 'tsconfig-to-swcconfig'
 
 const swcConfig = convertTsConfig(
   { target: 'es2018' }, // tsconfig
