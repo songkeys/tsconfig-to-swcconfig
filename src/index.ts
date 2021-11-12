@@ -34,6 +34,7 @@ export function convertTsConfig(
     alwaysStrict = false,
     noImplicitUseStrict = false,
     paths,
+    baseUrl,
   } = tsOptions
   const module = (_module as unknown as string)?.toLowerCase()
 
@@ -69,6 +70,7 @@ export function convertTsConfig(
           (target as string).toLowerCase(),
         ),
         paths,
+        baseUrl,
       },
     } as swcType.Options,
     swcOptions,
