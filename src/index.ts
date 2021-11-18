@@ -30,6 +30,7 @@ export function convertTsConfig(
     module: _module,
     jsxFactory = 'React.createElement',
     jsxFragmentFactory = 'React.Fragment',
+    jsxImportSource = 'react',
     strict = false,
     alwaysStrict = false,
     noImplicitUseStrict = false,
@@ -52,6 +53,7 @@ export function convertTsConfig(
         target: target as swcType.JscTarget,
         parser: {
           syntax: 'typescript',
+          tsx: true,
           decorators: experimentalDecorators,
           dynamicImport: true,
         },
@@ -64,6 +66,7 @@ export function convertTsConfig(
             useBuiltins: false,
             pragma: jsxFactory,
             pragmaFrag: jsxFragmentFactory,
+            importSource: jsxImportSource,
           },
         },
         keepClassNames: !['es3', 'es5', 'es6', 'es2015'].includes(
