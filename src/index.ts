@@ -31,7 +31,6 @@ export function convertTsConfig(
     jsxFactory = 'React.createElement',
     jsxFragmentFactory = 'React.Fragment',
     jsxImportSource = 'react',
-    strict = false,
     alwaysStrict = false,
     noImplicitUseStrict = false,
     paths,
@@ -44,7 +43,6 @@ export function convertTsConfig(
       sourceMaps: sourceMap,
       module: {
         type: ['commonjs', 'amd', 'umd'].includes(module) ? module : 'commonjs',
-        strict,
         strictMode: alwaysStrict || !noImplicitUseStrict,
         noInterop: !esModuleInterop,
       } as swcType.ModuleConfig,

@@ -33,3 +33,9 @@ test('convert tsconfig file', (t) => {
 
   t.end()
 })
+
+test('ignores strict from tsconfig', (t) => {
+  const result = convert()
+  t.equal(result.module?.strict, undefined)
+  t.end()
+})
