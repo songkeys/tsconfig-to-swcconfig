@@ -1,6 +1,6 @@
 {
   "name": "tsconfig-to-swcconfig",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "Convert tsconfig to swc config",
   "main": "dist/index.js",
   "scripts": {
