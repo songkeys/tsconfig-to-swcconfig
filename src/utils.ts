@@ -26,7 +26,6 @@ export function getTSOptions(
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
 
   let { data, path } = joycon.loadSync([filename], cwd)
-
   if(!path || !data){
     const resolvedModule = resolveNodeModule(filename)
     if(resolvedModule){
@@ -37,16 +36,16 @@ function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
   }
 
   if (path && data) {
+    let newExtends = data.extends
     if (tsConfig) {
       data = deepmerge(data, tsConfig)
     }
-    let { extends: _extends } = data
-    if (_extends) {
-      delete data.extends
-      if(!_extends.endsWith('.json')){
-        _extends += '.json'
+    if (newExtends) {
+      if(!newExtends.endsWith('.json')){
+        newExtends += '.json'
       }
-      return loadTsFile(_extends, cwd, data)
+      data.extends = newExtends
+      return loadTsFile(newExtends, cwd, data)
     } else {
       return data
     }

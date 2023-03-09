@@ -15,7 +15,6 @@ test('read tsconfig file', (t) => {
   result = getTSOptions('tsconfig.json', path.resolve('/')) // a place with no tsconfig
   t.match(result, null)
 
-
   result = getTSOptions(
     'tsconfig-extends.json',
     path.resolve(__dirname, 'fixtures', 'tsconfig'),
@@ -30,6 +29,21 @@ test('read tsconfig file', (t) => {
     "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
     "module": "commonjs",
     "target": "es2018",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  })
+
+  result = getTSOptions(
+      'tsconfig-extends-recursive.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+  )
+  t.match(result, {
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+    "module": "commonjs",
+    "target": "es2017",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
