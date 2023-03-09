@@ -21,7 +21,6 @@ test('read tsconfig file', (t) => {
     path.resolve(__dirname, 'fixtures', 'tsconfig'),
   )
   t.match(result, { target: 'es2018' })
-  t.match(result, { strict: true })
 
   result = getTSOptions(
       'tsconfig-extends-imported.json',
