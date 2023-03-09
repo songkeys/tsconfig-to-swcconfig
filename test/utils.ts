@@ -1,6 +1,6 @@
 import { test } from 'tap'
 import path from 'path'
-import {getTSOptions, resolveNodeModule} from '../src/utils'
+import { getTSOptions, resolveNodeModule } from '../src/utils'
 
 test('read tsconfig file', (t) => {
   let result = getTSOptions(
@@ -15,26 +15,25 @@ test('read tsconfig file', (t) => {
   result = getTSOptions('tsconfig.json', path.resolve('/')) // a place with no tsconfig
   t.match(result, null)
 
-
   result = getTSOptions(
     'tsconfig-extends.json',
     path.resolve(__dirname, 'fixtures', 'tsconfig'),
   )
-  t.match(result, { target: 'es2018', "strict": true })
+  t.match(result, { target: 'es2018', strict: true })
 
   result = getTSOptions(
-      'tsconfig-extends-imported.json',
-      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    'tsconfig-extends-imported.json',
+    path.resolve(__dirname, 'fixtures', 'tsconfig'),
   )
   t.match(result, {
-    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
-    "module": "commonjs",
-    "target": "es2018",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    lib: ['es2019', 'es2020.promise', 'es2020.bigint', 'es2020.string'],
+    module: 'commonjs',
+    target: 'es2018',
+    strict: true,
+    esModuleInterop: true,
+    skipLibCheck: true,
+    forceConsistentCasingInFileNames: true,
+    moduleResolution: 'node',
   })
 
   t.end()
