@@ -2,5 +2,6 @@
   // test should read this file correctly
   "compilerOptions": {
     "target": "esnext",
+    "strict": true
   }
 }
