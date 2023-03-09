@@ -25,9 +25,9 @@ export function getTSOptions(
 
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
   let { data, path } = joycon.loadSync([filename], cwd)
-
+  console.log(path)
   if(path === undefined || data === undefined){
-    return null
+    return tsConfig
   }
 
   const { extends: _extends } = data
