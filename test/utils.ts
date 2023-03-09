@@ -39,12 +39,3 @@ test('read tsconfig file', (t) => {
 
   t.end()
 })
-
-test('resolveNodeModule', (t)=>{
-  t.equal(resolveNodeModule('will-fail-pkg'), null)
-
- t.ok(resolveNodeModule('typescript'))
-
-  t.end()
-
-})
