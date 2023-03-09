@@ -1,6 +1,6 @@
 import { test } from 'tap'
 import path from 'path'
-import { getTSOptions, resolveNodeModule } from '../src/utils'
+import { getTSOptions } from '../src/utils'
 
 test('read tsconfig file', (t) => {
   let result = getTSOptions(

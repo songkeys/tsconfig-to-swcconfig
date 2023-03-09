@@ -1,5 +1,5 @@
-import type * as swcType from '@swc/core'
-import type * as tsType from 'typescript'
+import type swcType from '@swc/core'
+import type tsType from 'typescript'
 import deepmerge from 'deepmerge'
 import { getTSOptions } from './utils'
 
