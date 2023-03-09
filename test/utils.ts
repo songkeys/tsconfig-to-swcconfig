@@ -3,34 +3,40 @@ import path from 'path'
 import { getTSOptions } from '../src/utils'
 
 test('read tsconfig file', (t) => {
-  // let result = getTSOptions(
-  //   'tsconfig.json',
-  //   path.resolve(__dirname, 'fixtures', 'tsconfig'),
-  // )
-  // t.match(result, { target: 'esnext' })
-  //
-  // result = getTSOptions()
-  // t.match(result, { target: 'es2018' })
-  //
-  // result = getTSOptions('tsconfig.json', path.resolve('/')) // a place with no tsconfig
-  // t.match(result, null)
-  //
+  let result = getTSOptions(
+    'tsconfig.json',
+    path.resolve(__dirname, 'fixtures', 'tsconfig'),
+  )
+  t.match(result, { target: 'esnext' })
 
-  /// working
-  // const result = getTSOptions(
-  //   'tsconfig-extends.json',
-  //   path.resolve(__dirname, 'fixtures', 'tsconfig'),
-  // )
-  // t.match(result, { target: 'es2018' })
-  // t.match(result, { strict: true })
+  result = getTSOptions()
+  t.match(result, { target: 'es2018' })
 
-  // console.log('RESULT', result)
-  const result = getTSOptions(
+  result = getTSOptions('tsconfig.json', path.resolve('/')) // a place with no tsconfig
+  t.match(result, null)
+
+
+  result = getTSOptions(
+    'tsconfig-extends.json',
+    path.resolve(__dirname, 'fixtures', 'tsconfig'),
+  )
+  t.match(result, { target: 'es2018' })
+  t.match(result, { strict: true })
+
+  result = getTSOptions(
       'tsconfig-extends-imported.json',
       path.resolve(__dirname, 'fixtures', 'tsconfig'),
   )
-  //
-  console.log("RESULT!!",result)
+  t.match(result, {
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
+    "module": "commonjs",
+    "target": "es2018",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  })
 
   t.end()
 })
