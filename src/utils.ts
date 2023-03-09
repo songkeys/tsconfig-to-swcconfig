@@ -1,6 +1,6 @@
 import fs from 'fs'
 import JoyCon from 'joycon'
-import type * as ts from 'typescript'
+import type ts from 'typescript'
 import { parse } from 'jsonc-parser'
 import deepmerge from 'deepmerge'
 
@@ -23,19 +23,42 @@ export function getTSOptions(
 }
 
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
-  let { data, path } = joycon.loadSync([filename], cwd)
+  let { data, path } = resolveFile(filename, cwd) ?? {}
+
   if (path && data) {
     if (tsConfig) {
-      data = deepmerge(tsConfig, data)
+      data = deepmerge(data, tsConfig)
     }
-    const { extends: _extends } = data
+    let { extends: _extends } = data
     if (_extends) {
       delete data.extends
-      return loadTsFile(path, cwd, data)
+      if (!_extends.endsWith('.json')) {
+        _extends += '.json'
+      }
+      return loadTsFile(_extends, cwd, data)
     } else {
       return data
     }
   } else {
+    return tsConfig
+  }
+}
+
+function resolveFile(
+  filename: string,
+  cwd: string,
+): {
+  data: any
+  path: string
+} | null {
+  try {
+    let { data, path } = joycon.loadSync([filename], cwd)
+    if (!path || !data) {
+      data = require(filename)
+      path = require.resolve(filename, { paths: [cwd] })
+    }
+    return { data, path }
+  } catch (e) {
     return null
   }
 }
