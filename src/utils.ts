@@ -3,7 +3,6 @@ import JoyCon from 'joycon'
 import type * as ts from 'typescript'
 import { parse } from 'jsonc-parser'
 import deepmerge from 'deepmerge'
-import nodePath from "path";
 
 const joycon = new JoyCon()
 
