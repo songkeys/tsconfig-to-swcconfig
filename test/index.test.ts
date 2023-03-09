@@ -2,7 +2,7 @@ import { describe, it } from 'vitest'
 import path from 'path'
 import { convert } from '../src/index'
 
-describe('convert', () => {
+describe.concurrent('convert', () => {
   it('should convert tsconfig.json', ({ expect }) => {
     let result = convert()
     expect(result.jsc?.target, 'es2018')

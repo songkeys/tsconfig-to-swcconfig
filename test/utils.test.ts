@@ -2,7 +2,7 @@ import { describe, it } from 'vitest'
 import path from 'path'
 import { getTSOptions } from '../src/utils'
 
-describe('getTSOptions', () => {
+describe.concurrent('getTSOptions', () => {
   it('should read tsconfig.json', ({ expect }) => {
     let result = getTSOptions(
       'tsconfig.json',
