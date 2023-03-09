@@ -1,6 +1,6 @@
 import { test } from 'tap'
 import path from 'path'
-import { getTSOptions } from '../src/utils'
+import {getTSOptions, resolveNodeModule} from '../src/utils'
 
 test('read tsconfig file', (t) => {
   let result = getTSOptions(
@@ -38,4 +38,13 @@ test('read tsconfig file', (t) => {
   })
 
   t.end()
+})
+
+test('resolveNodeModule', (t)=>{
+  t.equal(resolveNodeModule('will-fail-pkg'), null)
+
+ t.ok(resolveNodeModule('typescript'))
+
+  t.end()
+
 })

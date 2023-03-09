@@ -3,6 +3,7 @@ import JoyCon from 'joycon'
 import type * as ts from 'typescript'
 import { parse } from 'jsonc-parser'
 import deepmerge from 'deepmerge'
+import nodePath from "path";
 
 const joycon = new JoyCon()
 
@@ -23,7 +24,18 @@ export function getTSOptions(
 }
 
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
+
   let { data, path } = joycon.loadSync([filename], cwd)
+
+  if(!path || !data){
+    const resolvedModule = resolveNodeModule(filename)
+    if(resolvedModule){
+      cwd = resolvedModule.cwd
+      path = resolvedModule.path
+      data = resolvedModule.data
+    }
+  }
+
   if (path && data) {
     if (tsConfig) {
       data = deepmerge(data, tsConfig)
@@ -39,16 +51,17 @@ function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
       return data
     }
   } else {
-    return loadNodeModuleTsFile(filename, tsConfig)
+    return tsConfig
   }
 }
 
-function loadNodeModuleTsFile(moduleName: string, tsConfig?: any){
-  try{
-    let data = require(moduleName)
-    data = deepmerge(data, tsConfig)
-    return data
-  }catch (e){
-    return tsConfig
-  }
+export function resolveNodeModule(fileName: string){
+ try {
+   const data = require(fileName)
+   const path = require.resolve(fileName)
+   const cwd = nodePath.resolve(require.resolve(fileName), '..')
+   return {data, path, cwd}
+ }catch (e){
+   return null
+ }
 }
