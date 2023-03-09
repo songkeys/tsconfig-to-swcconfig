@@ -25,26 +25,31 @@ export function getTSOptions(
 
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
   let { data, path } = joycon.loadSync([filename], cwd)
-  console.log(path)
-  if(path === undefined || data === undefined){
-    return tsConfig
+  if (path && data) {
+    if (tsConfig) {
+      data = deepmerge(data, tsConfig)
+    }
+    let { extends: _extends } = data
+    if (_extends) {
+      delete data.extends
+      if(!_extends.endsWith('.json')){
+        _extends += '.json'
+      }
+      return loadTsFile(_extends, cwd, data)
+    } else {
+      return data
+    }
+  } else {
+    return loadNodeModuleTsFile(filename, tsConfig)
   }
-
-  const { extends: _extends } = data
-  if(!_extends){
-    return data
-  }
-  delete data.extends
-
-  return loadTsFile(path, cwd, data)
 }
 
 function loadNodeModuleTsFile(moduleName: string, tsConfig?: any){
   try{
-    const data = require(moduleName)
-    const path = nodePath.join(require.resolve(moduleName), '..')
-    return
+    let data = require(moduleName)
+    data = deepmerge(data, tsConfig)
+    return data
   }catch (e){
-    return null
+    return tsConfig
   }
 }

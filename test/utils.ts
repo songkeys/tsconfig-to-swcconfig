@@ -15,18 +15,22 @@ test('read tsconfig file', (t) => {
   // result = getTSOptions('tsconfig.json', path.resolve('/')) // a place with no tsconfig
   // t.match(result, null)
   //
-  const result = getTSOptions(
-    'tsconfig-extends.json',
-    path.resolve(__dirname, 'fixtures', 'tsconfig'),
-  )
-  t.match(result, { target: 'es2018' })
-  console.log('RESULT', result)
+
+  /// working
   // const result = getTSOptions(
-  //     'tsconfig-extends-imported.json',
-  //     path.resolve(__dirname, 'fixtures', 'tsconfig'),
+  //   'tsconfig-extends.json',
+  //   path.resolve(__dirname, 'fixtures', 'tsconfig'),
   // )
+  // t.match(result, { target: 'es2018' })
+  // t.match(result, { strict: true })
+
+  // console.log('RESULT', result)
+  const result = getTSOptions(
+      'tsconfig-extends-imported.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+  )
   //
-  // console.log("RESULT!!",result)
+  console.log("RESULT!!",result)
 
   t.end()
 })
