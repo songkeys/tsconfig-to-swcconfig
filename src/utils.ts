@@ -19,7 +19,7 @@ export function getTSOptions(
   cwd: string = process.cwd(),
 ): ts.CompilerOptions | null {
   const { compilerOptions } = loadTsFile(filename, cwd) ?? {}
-  return compilerOptions
+  return compilerOptions ?? null
 }
 
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {

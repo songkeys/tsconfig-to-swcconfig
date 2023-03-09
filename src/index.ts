@@ -28,6 +28,7 @@ export function convertTsConfig(
     emitDecoratorMetadata = false,
     target = 'es3',
     module: _module,
+    jsx: _jsx,
     jsxFactory = 'React.createElement',
     jsxFragmentFactory = 'React.Fragment',
     jsxImportSource = 'react',
@@ -38,14 +39,24 @@ export function convertTsConfig(
   } = tsOptions
   const module = (_module as unknown as string)?.toLowerCase()
 
+  const availableModuleTypes = ['commonjs', 'amd', 'umd', 'es6'] as const
+
+  const jsx = (_jsx as unknown as string)?.toLowerCase()
+  const jsxRuntime: swcType.ReactConfig['runtime'] =
+    jsx === 'react-jsx' || jsx === 'react-jsxdev' ? 'automatic' : undefined
+  const jsxDevelopment: swcType.ReactConfig['development'] =
+    jsx === 'react-jsxdev' ? true : undefined
+
   const transformedOptions = deepmerge(
     {
       sourceMaps: sourceMap,
       module: {
-        type: ['commonjs', 'amd', 'umd'].includes(module) ? module : 'commonjs',
+        type: availableModuleTypes.includes(module as any)
+          ? (module as (typeof availableModuleTypes)[number])
+          : 'commonjs',
         strictMode: alwaysStrict || !noImplicitUseStrict,
         noInterop: !esModuleInterop,
-      } as swcType.ModuleConfig,
+      } satisfies swcType.ModuleConfig,
       jsc: {
         externalHelpers: importHelpers,
         target: target as swcType.JscTarget,
@@ -60,11 +71,12 @@ export function convertTsConfig(
           decoratorMetadata: emitDecoratorMetadata,
           react: {
             throwIfNamespace: false,
-            development: false,
+            development: jsxDevelopment,
             useBuiltins: false,
             pragma: jsxFactory,
             pragmaFrag: jsxFragmentFactory,
             importSource: jsxImportSource,
+            runtime: jsxRuntime,
           },
         },
         keepClassNames: !['es3', 'es5', 'es6', 'es2015'].includes(
@@ -73,7 +85,7 @@ export function convertTsConfig(
         paths,
         baseUrl,
       },
-    } as swcType.Options,
+    } satisfies swcType.Options,
     swcOptions,
   )
 

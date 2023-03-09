@@ -1,12 +1,12 @@
 {
   "name": "tsconfig-to-swcconfig",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Convert tsconfig to swc config",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "test": "tap --ts",
+    "test": "vitest run",
     "prepare": "npx lint-staged",
     "semantic-release": "semantic-release"
   },
@@ -30,23 +30,21 @@
   },
   "homepage": "https://github.com/Songkeys/tsconfig-to-swcconfig#readme",
   "dependencies": {
-    "deepmerge": "^4.2.2",
-    "joycon": "^3.0.1",
-    "jsonc-parser": "^3.0.0"
+    "deepmerge": "^4.3.0",
+    "joycon": "^3.1.1",
+    "jsonc-parser": "^3.2.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.108",
+    "@swc/core": "^1.3.38",
     "@tsconfig/node12": "^1.0.11",
-    "@types/node": "^16.6.1",
-    "@types/source-map-support": "^0.5.4",
-    "@types/tap": "^15.0.5",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
-    "semantic-release": "^19.0.3",
-    "tap": "^16.3.4",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.3.5"
+    "@types/node": "^18.14.6",
+    "@types/source-map-support": "^0.5.6",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
