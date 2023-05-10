@@ -3,9 +3,7 @@ import type tsType from 'typescript'
 import { getTSOptions } from './utils'
 import Deepmerge from '@fastify/deepmerge'
 
-const deepmerge = Deepmerge({
-  all: true,
-})
+const deepmerge = Deepmerge()
 
 export function convert(
   /** filename to tsconfig */

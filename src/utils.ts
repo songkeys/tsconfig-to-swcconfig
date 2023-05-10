@@ -5,7 +5,6 @@ import { parse } from 'jsonc-parser'
 import Deepmerge from '@fastify/deepmerge'
 
 const deepmerge = Deepmerge({
-  all: true,
   mergeArray: function replaceByClonedSource(options) {
     const clone = options.clone
     return function (target, source) {
