@@ -53,8 +53,7 @@ function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
     if (!_extends.endsWith('.json')) {
       _extends += '.json'
     }
-    const clonedData = structuredClone(data)
-    data = loadTsFile(_extends, cwd, clonedData)
+    data = loadTsFile(_extends, cwd, data)
   }
 
   return data
