@@ -43,4 +43,22 @@ describe.concurrent('getTSOptions', () => {
       moduleResolution: 'node',
     })
   })
+
+  it('should read extended array tsconfig', ({ expect }) => {
+    let result = getTSOptions(
+      'tsconfig-extends-array.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    )
+    expect(result).toMatchObject({
+      lib: ['es2019', 'es2020.promise', 'es2020.bigint', 'es2020.string'],
+      module: 'commonjs',
+      target: 'es2018',
+      strict: true,
+      esModuleInterop: true,
+      skipLibCheck: true,
+      forceConsistentCasingInFileNames: true,
+      moduleResolution: 'node',
+      allowJs: true, // from the second child
+    })
+  })
 })

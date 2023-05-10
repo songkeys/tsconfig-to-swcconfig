@@ -1,7 +1,11 @@
 import type swcType from '@swc/core'
 import type tsType from 'typescript'
-import deepmerge from 'deepmerge'
 import { getTSOptions } from './utils'
+import Deepmerge from '@fastify/deepmerge'
+
+const deepmerge = Deepmerge({
+  all: true,
+})
 
 export function convert(
   /** filename to tsconfig */
