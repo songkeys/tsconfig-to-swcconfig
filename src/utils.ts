@@ -2,7 +2,16 @@ import fs from 'fs'
 import JoyCon from 'joycon'
 import type ts from 'typescript'
 import { parse } from 'jsonc-parser'
-import deepmerge from 'deepmerge'
+import Deepmerge from '@fastify/deepmerge'
+
+const deepmerge = Deepmerge({
+  mergeArray: function replaceByClonedSource(options) {
+    const clone = options.clone
+    return function (target, source) {
+      return clone(source)
+    }
+  },
+})
 
 const joycon = new JoyCon()
 
@@ -25,23 +34,28 @@ export function getTSOptions(
 function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
   let { data, path } = resolveFile(filename, cwd) ?? {}
 
-  if (path && data) {
-    if (tsConfig) {
-      data = deepmerge(data, tsConfig)
-    }
-    let { extends: _extends } = data
-    if (_extends) {
-      delete data.extends
-      if (!_extends.endsWith('.json')) {
-        _extends += '.json'
-      }
-      return loadTsFile(_extends, cwd, data)
-    } else {
-      return data
-    }
-  } else {
+  if (!path || !data) {
     return tsConfig
   }
+
+  if (tsConfig) {
+    data = deepmerge(data, tsConfig)
+  }
+
+  if (!data.extends) {
+    return data
+  }
+
+  const extendsArr = Array.isArray(data.extends) ? data.extends : [data.extends]
+  delete data.extends
+  for (let _extends of extendsArr) {
+    if (!_extends.endsWith('.json')) {
+      _extends += '.json'
+    }
+    data = loadTsFile(_extends, cwd, data)
+  }
+
+  return data
 }
 
 function resolveFile(
