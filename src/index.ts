@@ -29,7 +29,7 @@ export function convertTsConfig(
     experimentalDecorators = false,
     emitDecoratorMetadata = false,
     target = 'es3',
-    module: _module,
+    module,
     jsx: _jsx,
     jsxFactory = 'React.createElement',
     jsxFragmentFactory = 'React.Fragment',
@@ -39,9 +39,6 @@ export function convertTsConfig(
     paths,
     baseUrl,
   } = tsOptions
-  const module = (_module as unknown as string)?.toLowerCase()
-
-  const availableModuleTypes = ['commonjs', 'amd', 'umd', 'es6'] as const
 
   const jsx = (_jsx as unknown as string)?.toLowerCase()
   const jsxRuntime: swcType.ReactConfig['runtime'] =
@@ -53,9 +50,7 @@ export function convertTsConfig(
     {
       sourceMaps: sourceMap,
       module: {
-        type: availableModuleTypes.includes(module as any)
-          ? (module as (typeof availableModuleTypes)[number])
-          : 'commonjs',
+        type: moduleType(module),
         strictMode: alwaysStrict || !noImplicitUseStrict,
         noInterop: !esModuleInterop,
       } satisfies swcType.ModuleConfig,
@@ -92,4 +87,21 @@ export function convertTsConfig(
   )
 
   return transformedOptions
+}
+
+const availableModuleTypes = ['commonjs', 'amd', 'umd', 'es6'] as const
+type Module = (typeof availableModuleTypes)[number]
+
+function moduleType(m: string): Module {
+  const module = (m as unknown as string)?.toLowerCase()
+  if (availableModuleTypes.includes(module as any)) {
+    return module
+  }
+
+  const es6Modules = ['es2015', 'es2020', 'es2022', 'esnext'] as const
+  if (es6Modules.includes(module as any)) {
+    return 'es6'
+  }
+
+  return 'commonjs'
 }

@@ -40,4 +40,13 @@ describe.concurrent('convert', () => {
     // @ts-ignore
     expect(result.module?.strict).toBe(undefined)
   })
+
+  it('should ignore strict from tsconfig', ({ expect }) => {
+    const result = convert(
+      'tsconfig-es2022.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    )
+    // @ts-ignore
+    expect(result.module?.type).toBe('es6')
+  })
 })
