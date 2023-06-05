@@ -92,10 +92,10 @@ export function convertTsConfig(
 const availableModuleTypes = ['commonjs', 'amd', 'umd', 'es6'] as const
 type Module = (typeof availableModuleTypes)[number]
 
-function moduleType(m: string): Module {
+function moduleType(m: tsType.ModuleKind | undefined): Module {
   const module = (m as unknown as string)?.toLowerCase()
   if (availableModuleTypes.includes(module as any)) {
-    return module
+    return module as Module
   }
 
   const es6Modules = ['es2015', 'es2020', 'es2022', 'esnext'] as const
