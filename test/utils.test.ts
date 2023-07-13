@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
-import path from 'path'
+import path from 'node:path'
 import { getTSOptions } from '../src/utils'
 
 describe.concurrent('getTSOptions', () => {
@@ -34,13 +34,13 @@ describe.concurrent('getTSOptions', () => {
     )
     expect(result).toMatchObject({
       lib: ['es2019', 'es2020.promise', 'es2020.bigint', 'es2020.string'],
-      module: 'commonjs',
+      module: 'node16',
       target: 'es2018',
       strict: true,
       esModuleInterop: true,
       skipLibCheck: true,
       forceConsistentCasingInFileNames: true,
-      moduleResolution: 'node',
+      moduleResolution: 'node16',
     })
   })
 
@@ -51,13 +51,13 @@ describe.concurrent('getTSOptions', () => {
     )
     expect(result).toMatchObject({
       lib: ['es2019', 'es2020.promise', 'es2020.bigint', 'es2020.string'],
-      module: 'commonjs',
+      module: 'node16',
       target: 'es2018',
       strict: true,
       esModuleInterop: true,
       skipLibCheck: true,
       forceConsistentCasingInFileNames: true,
-      moduleResolution: 'node',
+      moduleResolution: 'node16',
       allowJs: true, // from the second child
     })
   })

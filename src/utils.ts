@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import JoyCon from 'joycon'
 import type ts from 'typescript'
 import { parse } from 'jsonc-parser'

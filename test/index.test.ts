@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
-import path from 'path'
+import path from 'node:path'
 import { convert } from '../src/index'
 
 describe.concurrent('convert', () => {

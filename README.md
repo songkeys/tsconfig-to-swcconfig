@@ -58,6 +58,37 @@ const swcConfig = convertTsConfig(
 )
 ```
 
+## CLI
+
+To use the CLI, install globally:
+
+```bash
+npm i -g tsconfig-to-swcconfig
+```
+
+Then run:
+
+```bash
+tsconfig-to-swcconfig --help
+```
+
+```bash
+Usage: tsconfig-to-swcconfig [options]
+Alias: t2s [options]
+
+Options:
+  -f, --filename <filename>  filename to tsconfig (default: "tsconfig.json")
+  -c, --cwd <cwd>            cwd (default: process.cwd())
+  -o, --output <output>      output file (default: stdout)
+  -h, --help                 display help for command
+```
+
+Instead of installing globally, you can also use `npx` to run the CLI without installing:
+
+```bash
+npx tsconfig-to-swcconfig -f tsconfig.json -c /path/to/project -o swc.config.js
+```
+
 ## License
 
 MIT
