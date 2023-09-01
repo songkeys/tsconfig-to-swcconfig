@@ -27,6 +27,22 @@ describe.concurrent('getTSOptions', () => {
     expect(result).toMatchObject({ target: 'es2018', strict: true })
   })
 
+  it('should read extended tsconfig with no target set', ({ expect }) => {
+    let result = getTSOptions(
+      'tsconfig-extends-no-target.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    )
+    expect(result).toMatchObject({ target: 'esnext', strict: true })
+  })
+
+  it('should read multiple extended tsconfig with no target set', ({ expect }) => {
+    let result = getTSOptions(
+      'tsconfig-extends-no-target-child.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    )
+    expect(result).toMatchObject({ target: 'esnext', strict: false })
+  })
+
   it('should read extended tsconfig in node_modules', ({ expect }) => {
     let result = getTSOptions(
       'tsconfig-extends-imported.json',
