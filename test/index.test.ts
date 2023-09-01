@@ -49,4 +49,13 @@ describe.concurrent('convert', () => {
     // @ts-ignore
     expect(result.module?.type).toBe('es6')
   })
+
+  it('should support target es6', ({ expect }) => {
+    const result = convert(
+      'tsconfig-es6.json',
+      path.resolve(__dirname, 'fixtures', 'tsconfig'),
+    )
+    // @ts-ignore
+    expect(result.jsc?.target).toBe('es2015')
+  })
 })
