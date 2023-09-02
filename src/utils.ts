@@ -31,15 +31,11 @@ export function getTSOptions(
   return compilerOptions ?? null
 }
 
-function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
+function loadTsFile(filename: string, cwd: string): any {
   let { data, path } = resolveFile(filename, cwd) ?? {}
 
   if (!path || !data) {
-    return tsConfig
-  }
-
-  if (tsConfig) {
-    data = deepmerge(data, tsConfig)
+    return null
   }
 
   if (!data.extends) {
@@ -47,12 +43,11 @@ function loadTsFile(filename: string, cwd: string, tsConfig?: any): any {
   }
 
   const extendsArr = Array.isArray(data.extends) ? data.extends : [data.extends]
-  delete data.extends
   for (let _extends of extendsArr) {
     if (!_extends.endsWith('.json')) {
       _extends += '.json'
     }
-    data = loadTsFile(_extends, cwd, data)
+    data = deepmerge(loadTsFile(_extends, cwd), data)
   }
 
   return data
