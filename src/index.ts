@@ -106,9 +106,11 @@ function moduleType(m: tsType.ModuleKind | undefined): Module {
   return 'commonjs'
 }
 
-function targetType(m: string): swcType.JscTarget {
-  // ts: https://www.typescriptlang.org/tsconfig#target
+function targetType(t: string): swcType.JscTarget {
+  // ts: "es3" | "es5"| "es6" | "es2015"| "es2016"| "es2017"| "es2018"| "es2019"| "es2020"| "es2021"| "es2022"| "esnext";
+  // @see https://www.typescriptlang.org/tsconfig#target
   // swc: "es3" | "es5" | "es2015" | "es2016" | "es2017" | "es2018" | "es2019" | "es2020" | "es2021" | "es2022" | "esnext";
 
-  return m === 'es6' ? 'es2015' : m as swcType.JscTarget
+  t = t.toLowerCase()
+  return t === 'es6' ? 'es2015' : (t as swcType.JscTarget)
 }
