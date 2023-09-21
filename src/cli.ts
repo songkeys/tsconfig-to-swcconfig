@@ -59,6 +59,7 @@ const overrides = overrideValues?.reduce((all, a) => {
 	const key = props[props.length - 1]
 	const parent = parents.reduce((o, s) => {
 		o[s] ??= {}
+		return o[s]
 	}, all)
 
 	parent[key] = value
