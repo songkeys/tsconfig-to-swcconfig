@@ -23,6 +23,7 @@
 		"build": "tsc",
 		"format": "biome format . --write",
 		"lint": "biome check .",
+		"lint:fix": "biome check . --apply",
 		"prepublishOnly": "npm run build",
 		"test": "npm run build && node --test"
 	},
@@ -40,9 +41,8 @@
 		"@tsconfig/node12": "^12.1.0",
 		"@types/node": "^20.6.3",
 		"@types/source-map-support": "^0.5.7",
-		"husky": "^8.0.3",
-		"lint-staged": "^14.0.1",
 		"prettier": "^3.0.3",
+		"simple-git-hooks": "^2.9.0",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.2.2"
 	}
