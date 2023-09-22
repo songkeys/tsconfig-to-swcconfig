@@ -56,4 +56,36 @@ describe('cli', { concurrency: true }, () => {
 		match(stdout, /"target": "es2015"/)
 		match(stdout, /"type": "commonjs"/)
 	})
+
+	it('should convert tsconfig.json with boolean additions', async () => {
+		const { stdout, stderr } = await pExe('node', [
+			'dist/cli.js',
+			'--set',
+			'jsc.externalHelpers=true',
+			'--set',
+			'jsc.test2=false',
+		])
+		strictEqual(stderr, '')
+		match(stdout, /"externalHelpers": true/)
+		match(stdout, /"test2": false/)
+	})
+
+	it('should convert tsconfig.json with numeric additions', async () => {
+		const { stdout, stderr } = await pExe('node', [
+			'dist/cli.js',
+			'--set',
+			'jsc.num1=1',
+			'--set',
+			'jsc.num2=2',
+			'--set',
+			'jsc.not1=1x',
+			'--set',
+			'jsc.not2=x2',
+		])
+		strictEqual(stderr, '')
+		match(stdout, /"num1": 1/)
+		match(stdout, /"num2": 2/)
+		match(stdout, /"not1": "1x"/)
+		match(stdout, /"not2": "x2"/)
+	})
 })
