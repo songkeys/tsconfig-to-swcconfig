@@ -71,3 +71,13 @@ function resolveFile(
 		return null
 	}
 }
+
+export function parseParamValue(prop: string, value: string) {
+	if (value === "true" || value === "false") {
+	  return value === "true"
+	}
+	if (!isNaN(Number(value))) {
+	  return Number(value)
+	}
+	return value
+  }

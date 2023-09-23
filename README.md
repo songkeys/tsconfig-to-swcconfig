@@ -80,6 +80,7 @@ Options:
   -f, --filename <filename>  filename to tsconfig (default: "tsconfig.json")
   -c, --cwd <cwd>            cwd (default: process.cwd())
   -o, --output <output>      output file (default: stdout)
+  -s, --set <name>=<value>   set additional swcrc options
   -h, --help                 display help for command
 ```
 
