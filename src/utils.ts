@@ -73,11 +73,12 @@ function resolveFile(
 }
 
 export function parseParamValue(prop: string, value: string) {
-	if (value === 'true' || value === 'false') {
-		return value === 'true'
+	if (value === 'undefined') {
+		return undefined
 	}
-	if (!isNaN(Number(value))) {
-		return Number(value)
+	try {
+		return JSON.parse(value)
+	} catch (_) {
+		return value
 	}
-	return value
 }
