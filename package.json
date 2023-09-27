@@ -2,7 +2,12 @@
 	"name": "tsconfig-to-swcconfig",
 	"version": "2.5.1",
 	"description": "Convert tsconfig to swc config",
-	"keywords": ["swc", "tsconfig", "converter", "config"],
+	"keywords": [
+		"swc",
+		"tsconfig",
+		"converter",
+		"config"
+	],
 	"homepage": "https://github.com/Songkeys/tsconfig-to-swcconfig#readme",
 	"bugs": {
 		"url": "https://github.com/Songkeys/tsconfig-to-swcconfig/issues"
@@ -18,7 +23,9 @@
 		"t2s": "dist/cli.js",
 		"tsconfig-to-swcconfig": "dist/cli.js"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "tsc",
 		"format": "biome format . --write",
@@ -37,10 +44,10 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.2.2",
-		"@swc/core": "^1.3.87",
+		"@swc/core": "^1.3.89",
 		"@tsconfig/node12": "^12.1.0",
-		"@types/node": "^20.6.3",
-		"@types/source-map-support": "^0.5.7",
+		"@types/node": "^20.7.0",
+		"@types/source-map-support": "^0.5.8",
 		"prettier": "^3.0.3",
 		"simple-git-hooks": "^2.9.0",
 		"ts-node": "^10.9.1",
