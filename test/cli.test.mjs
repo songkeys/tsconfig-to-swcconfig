@@ -1,4 +1,4 @@
-import { match, doesNotMatch, ok, strictEqual } from 'node:assert'
+import { doesNotMatch, match, ok, strictEqual } from 'node:assert'
 import { execFile } from 'node:child_process'
 import { dirname, resolve } from 'node:path'
 import { describe, it } from 'node:test'

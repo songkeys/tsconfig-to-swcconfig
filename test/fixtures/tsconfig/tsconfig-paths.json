@@ -1,8 +1,8 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "lib-a": "../../other/a"
-    }
-  }
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"lib-a": "../../other/a"
+		}
+	}
 }
