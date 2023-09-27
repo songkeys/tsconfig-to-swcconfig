@@ -1,6 +1,6 @@
 {
 	"name": "tsconfig-to-swcconfig",
-	"version": "2.5.1",
+	"version": "2.6.0",
 	"description": "Convert tsconfig to swc config",
 	"keywords": [
 		"swc",
