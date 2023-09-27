@@ -4,7 +4,6 @@ import { writeFile } from 'node:fs'
 import { parseArgs } from 'node:util'
 import type swcType from '@swc/core'
 import { convert } from './index'
-import { parseParamValue } from './utils'
 
 const {
 	values: { filename, cwd, output, help, set: overrideValues },
@@ -63,7 +62,15 @@ const overrides = overrideValues?.reduce((all, a) => {
 		return o[s]
 	}, all)
 
-	parent[key] = parseParamValue(prop, value)
+	if (value === 'undefined') {
+		parent[key] = undefined
+	} else {
+		try {
+			parent[key] = JSON.parse(value)
+		} catch (_) {
+			parent[key] = value
+		}
+	}
 
 	return all
 }, {} as any) as swcType.Options

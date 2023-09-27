@@ -5,6 +5,12 @@
 
 Convert tsconfig to swc config.
 
+> Why?
+>
+> (https://github.com/swc-project/swc/issues/1348)
+>
+> `swc` has no plans to support `tsconfig.json`, but it could be useful in some cases. For example, migrating from `tsc` to `swc` in a large project, you can use this tool to convert `tsconfig.json` to `.swcrc`, and then modify the `.swcrc` to make it work.
+
 ## Install
 
 ```bash

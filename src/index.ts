@@ -1,6 +1,6 @@
 import Deepmerge from '@fastify/deepmerge'
 import type swcType from '@swc/core'
-import type tsType from 'typescript'
+import { type TsConfigJson } from 'get-tsconfig'
 import { getTSOptions } from './utils'
 
 const deepmerge = Deepmerge()
@@ -18,7 +18,7 @@ export function convert(
 }
 
 export function convertTsConfig(
-	tsOptions: tsType.CompilerOptions,
+	tsOptions: TsConfigJson.CompilerOptions,
 	swcOptions: swcType.Options = {},
 ): swcType.Options {
 	// https://json.schemastore.org/tsconfig
@@ -92,7 +92,9 @@ export function convertTsConfig(
 const availableModuleTypes = ['commonjs', 'amd', 'umd', 'es6'] as const
 type Module = typeof availableModuleTypes[number]
 
-function moduleType(m: tsType.ModuleKind | undefined): Module {
+function moduleType(
+	m: TsConfigJson.CompilerOptions.Module | undefined,
+): Module {
 	const module = (m as unknown as string)?.toLowerCase()
 	if (availableModuleTypes.includes(module as any)) {
 		return module as Module

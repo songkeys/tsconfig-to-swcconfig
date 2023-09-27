@@ -27,8 +27,8 @@ describe('getTSOptions', { concurrency: true }, () => {
 			skipLibCheck: true,
 			forceConsistentCasingInFileNames: true,
 			declaration: true,
-			rootDir: 'src',
-			outDir: 'dist',
+			rootDir: './src',
+			outDir: './dist',
 		})
 	})
 
