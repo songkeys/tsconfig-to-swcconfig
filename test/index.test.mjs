@@ -56,4 +56,12 @@ describe('convert', { concurrency: true }, () => {
 		)
 		strictEqual(result.jsc?.target, 'es2015')
 	})
+
+	it('should output module:es6 if the nearest package.json is of type:module', () => {
+		const result = convert(
+			'tsconfig.json',
+			resolve(__dirname, 'fixtures', 'tsconfig-with-package-json'),
+		)
+		strictEqual(result.module?.type, 'es6')
+	})
 })

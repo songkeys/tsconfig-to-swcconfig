@@ -1,7 +1,7 @@
 import Deepmerge from '@fastify/deepmerge'
 import type swcType from '@swc/core'
 import { type TsConfigJson } from 'get-tsconfig'
-import { getTSOptions } from './utils'
+import { getPackageJson, getTSOptions } from './utils'
 
 const deepmerge = Deepmerge()
 
@@ -14,12 +14,13 @@ export function convert(
 	swcOptions?: swcType.Options,
 ): swcType.Options {
 	const tsOptions = getTSOptions(filename, cwd) ?? {}
-	return convertTsConfig(tsOptions, swcOptions)
+	return convertTsConfig(tsOptions, swcOptions, cwd)
 }
 
 export function convertTsConfig(
 	tsOptions: TsConfigJson.CompilerOptions,
 	swcOptions: swcType.Options = {},
+	cwd: string = process.cwd(),
 ): swcType.Options {
 	// https://json.schemastore.org/tsconfig
 	const {
@@ -50,7 +51,7 @@ export function convertTsConfig(
 		{
 			sourceMaps: sourceMap,
 			module: {
-				type: moduleType(module),
+				type: moduleType(module, cwd),
 				strictMode: alwaysStrict || !noImplicitUseStrict,
 				noInterop: !esModuleInterop,
 			} satisfies swcType.ModuleConfig,
@@ -94,14 +95,28 @@ type Module = typeof availableModuleTypes[number]
 
 function moduleType(
 	m: TsConfigJson.CompilerOptions.Module | undefined,
+	cwd: string = process.cwd(),
 ): Module {
 	const module = (m as unknown as string)?.toLowerCase()
 	if (availableModuleTypes.includes(module as any)) {
 		return module as Module
 	}
 
-	const es6Modules = ['es2015', 'es2020', 'es2022', 'esnext'] as const
+	const es6Modules = [
+		'es2015',
+		'es2020',
+		'es2022',
+		'esnext',
+		'node16',
+		'nodenext',
+		'none',
+	] as const
 	if (es6Modules.includes(module as any)) {
+		return 'es6'
+	}
+
+	const packageJson = getPackageJson(cwd)
+	if (packageJson?.type === 'module') {
 		return 'es6'
 	}
 
