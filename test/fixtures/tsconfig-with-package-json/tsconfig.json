@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "node16",
     "target": "esnext",
     "strict": true
   }
