@@ -107,16 +107,17 @@ function moduleType(
 		'es2020',
 		'es2022',
 		'esnext',
-		'node16',
-		'nodenext',
 		'none',
 	] as const
 	if (es6Modules.includes(module as any)) {
 		return 'es6'
 	}
 
-	const packageJson = getPackageJson(cwd)
-	if (packageJson?.type === 'module') {
+	const nodeModules = [
+		'node16',
+		'nodenext',
+	] as const
+	if (nodeModules.includes(module as any) && getPackageJson(cwd)?.type === 'module') {
 		return 'es6'
 	}
 
